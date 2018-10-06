@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="今天,下定决心终于把Hexo搭建好了(虽然过程简单无比),本想着搭好以后随便写点东西记录一下,明天开始写点学习的笔记,忽然想起搭建博客的初衷,觉得自己不应该再懒散下去,遂决定还是写点什么,东西虽然浅显,主要还是希望自己能够坚持下去,加油吧! 准备工作使用Hexo搭建博客,你需要在你的电脑上做点准备工作:  安装Git Windows：下载并安装 Git. Mac：使用 Homebrew, MacP">
+<meta name="keywords" content="Hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一篇,如何用Hexo搭建属于自己的博客">
+<meta property="og:url" content="http://yoursite.com/2018/07/09/第一篇/index.html">
+<meta property="og:site_name" content="Allen">
+<meta property="og:description" content="今天,下定决心终于把Hexo搭建好了(虽然过程简单无比),本想着搭好以后随便写点东西记录一下,明天开始写点学习的笔记,忽然想起搭建博客的初衷,觉得自己不应该再懒散下去,遂决定还是写点什么,东西虽然浅显,主要还是希望自己能够坚持下去,加油吧! 准备工作使用Hexo搭建博客,你需要在你的电脑上做点准备工作:  安装Git Windows：下载并安装 Git. Mac：使用 Homebrew, MacP">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/2.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/3.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/4.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/5.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/6.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/7.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/8.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/1.png">
+<meta property="og:updated_time" content="2018-09-10T14:16:30.974Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第一篇,如何用Hexo搭建属于自己的博客">
+<meta name="twitter:description" content="今天,下定决心终于把Hexo搭建好了(虽然过程简单无比),本想着搭好以后随便写点东西记录一下,明天开始写点学习的笔记,忽然想起搭建博客的初衷,觉得自己不应该再懒散下去,遂决定还是写点什么,东西虽然浅显,主要还是希望自己能够坚持下去,加油吧! 准备工作使用Hexo搭建博客,你需要在你的电脑上做点准备工作:  安装Git Windows：下载并安装 Git. Mac：使用 Homebrew, MacP">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/09/第一篇/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/09/第一篇/"/>
+
+
+
+
+
+  <title>第一篇,如何用Hexo搭建属于自己的博客 | Allen</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Allen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天告诉自己一次：“我真的很不错”。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/09/第一篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Allen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Allen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第一篇,如何用Hexo搭建属于自己的博客</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-09T20:55:05+08:00">
+                2018-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天,下定决心终于把Hexo搭建好了(虽然过程简单无比),本想着搭好以后随便写点东西记录一下,明天开始写点学习的笔记,忽然想起搭建博客的初衷,觉得自己不应该再懒散下去,遂决定还是写点什么,东西虽然浅显,主要还是希望自己能够坚持下去,加油吧!</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>使用Hexo搭建博客,你需要在你的电脑上做点准备工作:</p>
+<ol>
+<li><h4 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h4><ul>
+<li>Windows：下载并安装 <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git</a>.</li>
+<li>Mac：使用 <a href="http://mxcl.github.com/homebrew/" target="_blank" rel="noopener">Homebrew</a>, <a href="http://www.macports.org/" target="_blank" rel="noopener">MacPorts</a> ：brew install git;或下载 <a href="http://sourceforge.net/projects/git-osx-installer/" target="_blank" rel="noopener">安装程序</a> 安装。</li>
+<li>Linux (Ubuntu, Debian)：sudo apt-get install git-core</li>
+<li>Linux (Fedora, Red Hat, CentOS)：sudo yum install git-core</li>
+</ul>
+</li>
+<li><h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4>安装 Node.js 的最佳方式是使用 <a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">nvm</a>。<br>cURL:<pre><code>$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+</code></pre> wget:<pre><code>$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh
+</code></pre>安装完成后，重启终端并执行下列命令即可安装 Node.js。<pre><code>$ nvm install stable
+</code></pre>或者您也可以下载 <a href="http://nodejs.org/" target="_blank" rel="noopener">安装程序</a> 来安装。</li>
+<li><h4 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h4><p>所有必备的应用程序安装完成后，即可使用 npm 安装 Hexo。</p>
+<pre><code>npm i -g hexo-cli
+</code></pre></li>
+<li><h4 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h4><p>关于什么是SSH,请自行百度.</p>
+<ul>
+<li><p>本地生成公钥私钥<br>   $ssh-keygen -t rsa -C “<a href="mailto:youremail@xx.com" target="_blank" rel="noopener">youremail@xx.com</a>“</p>
+</li>
+<li><p>添加公钥到Github<br>   cat ~/.ssh/id_rsa.pub<br> 复制这段你看不懂的密钥</p>
+</li>
+<li>登录 Github，右上角 头像 -&gt; Settings —&gt; SSH keys —&gt; Add SSH key。把公钥粘贴到key中，填好title并点击 Add key。</li>
+</ul>
+</li>
+</ol>
+<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><ol>
+<li><p>找到一个你喜欢的文件夹打开Git Bash，输入</p>
+<p>   hexo i  //init的缩写<br>   hexo g //generetor的缩写<br>   hexo s //server的缩写</p>
+</li>
+<li><p>打开浏览器输入 localhost:4000查看</p>
+<img src="/2018/07/09/第一篇/1.png">
+<p>如果在你的浏览器中出现上图的页面，恭喜你，现在你已经可以在这个主题下写博客了。<br>但你是不是觉得现在的主题不是你想要的style，行，Hexo有大量的主题可供选择，这里我选择了nexT主题。</p>
+</li>
+</ol>
+<h2 id="更换主题-——nexT"><a href="#更换主题-——nexT" class="headerlink" title="更换主题 ——nexT"></a>更换主题 ——nexT</h2><ol>
+<li><p>在你的站点根目录打开Git Bash，输入</p>
+<pre><code>git clone https://github.com/iissnan/hexo-theme-next themes/next
+</code></pre></li>
+<li><p>克隆完成后，打开站点配置文件找到theme字段，并将值landscape改成next。</p>
+<img src="/2018/07/09/第一篇/2.png"></li>
+<li><p>然后Git Bash输入</p>
+<pre><code>hexo clean  //清除缓存
+hexo g  //重新生成代码
+hexo s  //部署到本地
+// 浏览器输入localhost:4000查看
+</code></pre><img src="/2018/07/09/第一篇/3.png">
+</li>
+<li><p>选择nexT风格<br>nexT主题有三种风格选择，应用哪种风格完全取决你。</p>
+<blockquote>
+<ul>
+<li>Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白</li>
+<li>Mist - Muse 的紧凑版本，整洁有序的单栏外观</li>
+<li>Pisces - 双栏 Scheme，小家碧玉似的清新</li>
+</ul>
+</blockquote>
+<p>进入主题配置文件，找到scheme字段，将值改成上面三个的一个，你将看到另一个样子的nexT。</p>
+<pre><code>hexo clean
+hexo g
+hexo s
+</code></pre><p>如果你有更大的定制需求，你完全可以根据<a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">next官方文档</a>进行相应设置。</p>
+</li>
+</ol>
+<h2 id="博客上传到Github"><a href="#博客上传到Github" class="headerlink" title="博客上传到Github"></a>博客上传到Github</h2><ol>
+<li><p>登录你的github，然后创建一个新的库</p>
+<img src="/2018/07/09/第一篇/4.png">
+<p>这里的项目名字必须为你的用户名</p>
+</li>
+<li><p>创建仓库成功以后点击设置创建一个page</p>
+<img src="/2018/07/09/第一篇/5.png">
+<img src="/2018/07/09/第一篇/6.png">
+<p>然后点击choose theme</p>
+<img src="/2018/07/09/第一篇/7.png">
+<p>点击确定，然后访问链接 https://你的用户名.github.io，这时候你的页面应用的是github选择的主题，接下来我们把Hexo的代码部署到github上。</p>
+</li>
+<li>修改站点配置文件<img src="/2018/07/09/第一篇/8.png"></li>
+<li><p>部署<br>安装一个插件</p>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre><p>安装完成后执行</p>
+<pre><code>hexo d
+</code></pre><p>再次访问  https://你的用户名.github.io</p>
+<img src="/2018/07/09/第一篇/1.png">
+<p>大功告成了！！！关于如何在hexo新建文章，自己去官网看文档啊，我也是刚入门啊。</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/18/作用域/" rel="prev" title="JavaScript基础复习第一篇">
+                JavaScript基础复习第一篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Allen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Git"><span class="nav-number">1.0.1.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Node-js"><span class="nav-number">1.0.2.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Hexo"><span class="nav-number">1.0.3.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置SSH"><span class="nav-number">1.0.4.</span> <span class="nav-text">配置SSH</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速开始"><span class="nav-number">2.</span> <span class="nav-text">快速开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更换主题-——nexT"><span class="nav-number">3.</span> <span class="nav-text">更换主题 ——nexT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#博客上传到Github"><span class="nav-number">4.</span> <span class="nav-text">博客上传到Github</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Allen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

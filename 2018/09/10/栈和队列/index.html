@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="对任何专业技术人员来说，理解数据结构都非常重要。作为软件开发者，我们要能够用编程语言和数据结构来解决问题。编程语言和数据结构是这些问题解决方案中不可或缺的一部分。如果选择了不恰当的数据结构，可能会影响所写程序的性能。因此，了解不同数据结构和它们的适用范围十分重要。本文主要讲述Javascript中实现栈、队列、链表、集合、字典、散列表、树、图等数据结构. 概览数据结构 栈：一种遵从先进后出 (LI">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用JavaScript实现栈和队列">
+<meta property="og:url" content="http://yoursite.com/2018/09/10/栈和队列/index.html">
+<meta property="og:site_name" content="Allen">
+<meta property="og:description" content="对任何专业技术人员来说，理解数据结构都非常重要。作为软件开发者，我们要能够用编程语言和数据结构来解决问题。编程语言和数据结构是这些问题解决方案中不可或缺的一部分。如果选择了不恰当的数据结构，可能会影响所写程序的性能。因此，了解不同数据结构和它们的适用范围十分重要。本文主要讲述Javascript中实现栈、队列、链表、集合、字典、散列表、树、图等数据结构. 概览数据结构 栈：一种遵从先进后出 (LI">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-06T14:21:39.469Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用JavaScript实现栈和队列">
+<meta name="twitter:description" content="对任何专业技术人员来说，理解数据结构都非常重要。作为软件开发者，我们要能够用编程语言和数据结构来解决问题。编程语言和数据结构是这些问题解决方案中不可或缺的一部分。如果选择了不恰当的数据结构，可能会影响所写程序的性能。因此，了解不同数据结构和它们的适用范围十分重要。本文主要讲述Javascript中实现栈、队列、链表、集合、字典、散列表、树、图等数据结构. 概览数据结构 栈：一种遵从先进后出 (LI">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/10/栈和队列/"/>
+
+
+
+
+
+  <title>用JavaScript实现栈和队列 | Allen</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Allen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天告诉自己一次：“我真的很不错”。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/10/栈和队列/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Allen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Allen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用JavaScript实现栈和队列</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T20:55:05+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript之常见数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript之常见数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>对任何专业技术人员来说，理解数据结构都非常重要。作为软件开发者，我们要能够用编程语言和数据结构来解决问题。编程语言和数据结构是这些问题解决方案中不可或缺的一部分。如果选择了不恰当的数据结构，可能会影响所写程序的性能。因此，了解不同数据结构和它们的适用范围十分重要。<br>本文主要讲述Javascript中实现栈、队列、链表、集合、字典、散列表、树、图等数据结构.</p>
+<h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><ul>
+<li><strong>栈：</strong>一种遵从先进后出 (LIFO) 原则的有序集合；新添加的或待删除的元素都保存在栈的末尾，称作栈顶，另一端为栈底。在栈里，新元素都靠近栈顶，旧元素都接近栈底。</li>
+<li><strong>队列：</strong>与上相反，一种遵循先进先出 (FIFO / First In First Out) 原则的一组有序的项；队列在尾部添加新元素，并从头部移除元素。最新添加的元素必须排在队列的末尾。</li>
+<li><strong>链表：</strong>存储有序的元素集合，但不同于数组，链表中的元素在内存中并不是连续放置的；每个元素由一个存储元素本身的节点和一个指向下一个元素的引用（指针/链接）组成。</li>
+<li><strong>集合：</strong>由一组无序且唯一（即不能重复）的项组成；这个数据结构使用了与有限集合相同的数学概念，但应用在计算机科学的数据结构中。</li>
+<li><strong>字典：</strong>以 [键，值] 对为数据形态的数据结构，其中键名用来查询特定元素，类似于 Javascript 中的Object。</li>
+<li><strong>散列：</strong>根据关键码值（Key value）直接进行访问的数据结构；它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度；这个映射函数叫做散列函数，存放记录的数组叫做散列表。</li>
+<li><strong>树：</strong>由 n（n&gt;=1）个有限节点组成一个具有层次关系的集合；把它叫做“树”是因为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的，基本呈一对多关系，树也可以看做是图的特殊形式。</li>
+<li><strong>图：</strong>图是网络结构的抽象模型；图是一组由边连接的节点（顶点）；任何二元关系都可以用图来表示，常见的比如：道路图、关系图，呈多对多关系。</li>
+</ul>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>  栈是一种遵从先进后出 (LIFO) 原则的有序集合；新添加的或待删除的元素都保存在栈的末尾，称作栈顶，另一端为栈底。在栈里，新元素都靠近栈顶，旧元素都接近栈底。<br><br>  在现实生活中也有许多栈的例子，例如，从乒乓球盒中拿出乒乓球，一摞叠起来的书，都可以看成是一个栈。</p>
+<h3 id="栈的创建"><a href="#栈的创建" class="headerlink" title="栈的创建"></a>栈的创建</h3><p>我们将创建一个类来表示栈。让我们从基础开始，先声明这个类：</p>
+<pre><code>function Stack() {
+    // 栈的属性和方法
+}
+</code></pre><p>首先，我们需要一种数据结构保存栈里面的元素。</p>
+<pre><code>const items = [];
+</code></pre><p>接下来，要为我们的栈声明一些方法。</p>
+<pre><code>* push(item(s))：添加一个或多个新元素到栈顶。
+* pop：移除栈顶的元素，同时返回被移除的元素。
+* peek：返回栈顶的元素，不对栈做任何修改，仅仅只是返回栈顶元素。
+* isEmpty：判断栈里是否包含元素，有则返回true，无则返回false。
+* clear：移除栈里的所有元素。
+* size：返回栈里的元素个数。
+</code></pre><ol>
+<li><h4 id="push-方法实现"><a href="#push-方法实现" class="headerlink" title="push()方法实现"></a>push()方法实现</h4><p>该方法只添加元素到栈顶，也就是栈的末尾。</p>
+<pre><code>this.push = function(item) {
+    items.push(item);
+}
+</code></pre></li>
+<li><h4 id="pop-方法实现"><a href="#pop-方法实现" class="headerlink" title="pop()方法实现"></a>pop()方法实现</h4><p>这个方法主要用来移除栈里的元素。栈遵从LIFO原则，因此移出的是最后添加进去的元素。</p>
+<pre><code>this.pop = function() {
+    return item.pop();
+}
+</code></pre></li>
+<li><h4 id="peek-方法实现"><a href="#peek-方法实现" class="headerlink" title="peek()方法实现"></a>peek()方法实现</h4><p>因为Stack类内部是用数组保存元素的，所以访问数组的最后一个元素可以用 length - 1。</p>
+<pre><code>this.peek = function() {
+    return items[items.length - 1];
+}
+</code></pre></li>
+<li><h4 id="isEmpty-方法实现"><a href="#isEmpty-方法实现" class="headerlink" title="isEmpty()方法实现"></a>isEmpty()方法实现</h4><p>使用isEmpty方法，我们能简单地判断内部数组的长度是否为0。</p>
+<pre><code>this.isEmpty = function() {
+    return items.length === 0;
+}
+</code></pre></li>
+<li><h4 id="size-方法实现"><a href="#size-方法实现" class="headerlink" title="size()方法实现"></a>size()方法实现</h4><p>类似于数组的length属性，我们也能实现栈的length。对于集合，最好用size代替length。</p>
+<pre><code>this.size = function() {
+    return items.length;    
+}
+</code></pre></li>
+<li><h4 id="clear-方法实现"><a href="#clear-方法实现" class="headerlink" title="clear()方法实现"></a>clear()方法实现</h4><p>clear方法用来移除栈里所有的元素，把栈清空。</p>
+<pre><code>this.clear = function() {
+    items.length = 0;
+}
+</code></pre><p> 你也可以多次调用pop方法，把栈中的元素移除掉，实现clear方法。<br>至此，一个栈类的常用方法就已经完成了。</p>
+</li>
+</ol>
+<h3 id="栈的全部代码"><a href="#栈的全部代码" class="headerlink" title="栈的全部代码"></a>栈的全部代码</h3><pre><code>function Stack() {
+    const items = [];
+
+    this.push = function(item) {
+        items.push(item);
+    }
+
+    this.pop = function() {
+        return items.pop();
+    }
+
+    this.peek = function() {
+        return items[items.length - 1];
+    }
+
+    this.isEmpty = function() {
+        return items.length === 0;
+    }
+
+    this.size = function() {
+        return items.length;    
+    }
+
+    this.clear = function() {
+        items.length = 0;
+    }
+
+    this.print = function() {
+        return items;
+    }
+}
+</code></pre><h3 id="使用Stack类"><a href="#使用Stack类" class="headerlink" title="使用Stack类"></a>使用Stack类</h3><p>我们刚刚初始化了一个Stack类,接下来我们需要使用这个类做些简单示例.</p>
+<ol>
+<li><p>初始化Stack类,并验证是否为空</p>
+<pre><code>var stack = new Stack();
+console.log(stack.isEmpty()); // 输出为true
+</code></pre></li>
+<li><p>接下来,我们往栈里面添加一些元素(这里我们添加了6和8)</p>
+<pre><code>stack.push(6);
+stack.push(8);
+console.log(stack.print()); // 输出 [6,8]
+</code></pre><p> print()方式是我临时加的一个方法,方便查看栈内元素.</p>
+</li>
+<li><p>如果我们调用peek()方法,我们将会取出栈顶的一个元素.</p>
+<pre><code>console.log(stack.peek()); // 输出为8,因为它是栈里最后添加的一个元素
+</code></pre></li>
+<li><p>最后,我们试着把栈清空,这时候需要调用我们的clear()方法</p>
+<pre><code>console.log(stack.isEmpty()); // 输出为false,因为此时还未执行isEmpty()方法
+stack.clear();
+console.log(stack.isEmpty()); // 输出为true,isEmpty()方法已经执行
+</code></pre></li>
+</ol>
+<h3 id="从十进制到二进制"><a href="#从十进制到二进制" class="headerlink" title="从十进制到二进制"></a>从十进制到二进制</h3><p>接下来，我们运用栈的知识，来做一个案例，将十进制转化为二进制。要把十进制转化成二进制，我们可以将该十进制数字和2整除（二进制是满二进一），直到结<br>果是0为止。</p>
+<pre><code>function diviedBy2(decNumber) {
+    const remStack = new Stack();
+    const rem = &apos;&apos;;
+    const binaryString = &apos;&apos;;
+
+    while(decNumber &gt; 0) {
+        rem = Math.floor(decNumber % 2);
+        remStack.push(rem);
+        decNumber = Math.floor(decNumber / 2);
+    }
+
+    while(!remStack.isEmpty()) {
+        binaryString += remStack.pop().toString();
+    }
+    return binaryString;
+}
+</code></pre><p>我们执行转化函数：<br>console.log(diviedBy2(10)); // 1010<br>console.log(diviedBy2(210)); // 11010010<br>好了，我们对栈的了解姑且就到这里吧，更多的运用需要我们在项目实践中发现，接下来，我们来了解一下另一个常见的数据结构，队列。</p>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p>我们已经学习了栈。队列和栈非常类似，但是使用了不同的原则，而非后进先出。<br><br>队列是遵循FIFO（First In First Out，先进先出，也称为先来先服务）原则的一组有序的项。队列在尾部添加新元素，并从顶部移除元素。最新添加的元素必须排在队列的末尾。</p>
+<h3 id="创建队列"><a href="#创建队列" class="headerlink" title="创建队列"></a>创建队列</h3><p>我们需要创建自己的类来表示一个队列。先从最基本的声明类开始：</p>
+<pre><code>function Queue() {
+}
+</code></pre><p>首先需要一个用于存储队列中元素的数据结构。我们可以使用数组，就像在上一章Stack类中那样使用（你会发现Queue类和Stack类非常类似，只是添加和移除元素的原则不同:</p>
+<pre><code>const items = [];
+</code></pre><p>接下来，为我们的队列声明一些方法：</p>
+<pre><code>* enqueue(element(s))：向队列尾部添加一个（或多个）新的项。
+* dequeue()：移除队列的第一（即排在队列最前面的）项，并返回被移除的元素。
+* front()：返回队列中第一个元素——最先被添加，也将是最先被移除的元素。队列不做任何变动（不移除元素，只返回元素信息——与Stack类的peek方法非常类似）。
+* isEmpty()：如果队列中不包含任何元素，返回true，否则返回false。
+* clear(): clear方法用来移除队列里所有的元素，把队列清空。
+* size()：返回队列包含的元素个数。
+</code></pre><ol>
+<li><h4 id="enqueue-方法实现："><a href="#enqueue-方法实现：" class="headerlink" title="enqueue()方法实现："></a>enqueue()方法实现：</h4><p>这个方法负责向队列添加新元素,新的项只能添加到队列末尾。</p>
+<pre><code>this.enqueue = function(element) {
+    items.push(element);
+}
+</code></pre></li>
+<li><h4 id="dequeue-方法实现："><a href="#dequeue-方法实现：" class="headerlink" title="dequeue()方法实现："></a>dequeue()方法实现：</h4><p>这个方法负责从队列移除项。由于队列遵循先进先出原则，最先添加的项也是最先被移除的。</p>
+<pre><code>this.dequeue = function() {
+    return items.shift();
+}
+</code></pre></li>
+<li><h4 id="front-方法实现："><a href="#front-方法实现：" class="headerlink" title="front()方法实现："></a>front()方法实现：</h4><p>这个方法会返回队列最前面的项（数组的索引为0）。</p>
+<pre><code>this.front = function() {
+    return items[0];
+}
+</code></pre></li>
+<li><h4 id="isEmpty-方法实现-1"><a href="#isEmpty-方法实现-1" class="headerlink" title="isEmpty()方法实现"></a>isEmpty()方法实现</h4><p>如果队列为空，它会返回true，否则返回false（注意这个方法和Stack类里的一样）。</p>
+<pre><code>this.isEmpty = function () {
+    return items.length === 0;
+}
+</code></pre></li>
+<li><h4 id="clear-方法实现："><a href="#clear-方法实现：" class="headerlink" title="clear()方法实现："></a>clear()方法实现：</h4><pre><code>this.clear = function() {
+    items.length = 0;
+} 
+</code></pre></li>
+<li><h4 id="size-方法实现："><a href="#size-方法实现：" class="headerlink" title="size()方法实现："></a>size()方法实现：</h4><p>这个方法会返回队列中元素的个数。</p>
+<pre><code>this.size = function() {
+    return items.length;
+}
+</code></pre><h3 id="完整的Queue类"><a href="#完整的Queue类" class="headerlink" title="完整的Queue类"></a>完整的Queue类</h3><pre><code>function Queue() {
+    const items = [];
+
+    this.enqueue = function(element) {
+        items.push(element);
+    }
+
+    this.dequeue = function() {
+        return items.shift();
+    }
+
+    this.front = function() {
+        return items[0];
+    }
+
+    this.isEmpty = function () {
+        return items.length === 0;
+    }
+
+    this.size = function() {
+        return items.length;
+    }
+
+    this.print = function() {
+        console.log(items.toString());
+    }
+}
+</code></pre><h3 id="使用Queue类"><a href="#使用Queue类" class="headerlink" title="使用Queue类"></a>使用Queue类</h3></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/18/作用域/" rel="next" title="JavaScript基础复习第一篇">
+                <i class="fa fa-chevron-left"></i> JavaScript基础复习第一篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Allen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据结构"><span class="nav-number">1.1.</span> <span class="nav-text">数据结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈"><span class="nav-number"></span> <span class="nav-text">栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈的创建"><span class="nav-number">1.</span> <span class="nav-text">栈的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#push-方法实现"><span class="nav-number">1.1.</span> <span class="nav-text">push()方法实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pop-方法实现"><span class="nav-number">1.2.</span> <span class="nav-text">pop()方法实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#peek-方法实现"><span class="nav-number">1.3.</span> <span class="nav-text">peek()方法实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#isEmpty-方法实现"><span class="nav-number">1.4.</span> <span class="nav-text">isEmpty()方法实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#size-方法实现"><span class="nav-number">1.5.</span> <span class="nav-text">size()方法实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#clear-方法实现"><span class="nav-number">1.6.</span> <span class="nav-text">clear()方法实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈的全部代码"><span class="nav-number">2.</span> <span class="nav-text">栈的全部代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Stack类"><span class="nav-number">3.</span> <span class="nav-text">使用Stack类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从十进制到二进制"><span class="nav-number">4.</span> <span class="nav-text">从十进制到二进制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列"><span class="nav-number"></span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建队列"><span class="nav-number">1.</span> <span class="nav-text">创建队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#enqueue-方法实现："><span class="nav-number">1.1.</span> <span class="nav-text">enqueue()方法实现：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dequeue-方法实现："><span class="nav-number">1.2.</span> <span class="nav-text">dequeue()方法实现：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#front-方法实现："><span class="nav-number">1.3.</span> <span class="nav-text">front()方法实现：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#isEmpty-方法实现-1"><span class="nav-number">1.4.</span> <span class="nav-text">isEmpty()方法实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#clear-方法实现："><span class="nav-number">1.5.</span> <span class="nav-text">clear()方法实现：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#size-方法实现："><span class="nav-number">1.6.</span> <span class="nav-text">size()方法实现：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整的Queue类"><span class="nav-number">2.</span> <span class="nav-text">完整的Queue类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Queue类"><span class="nav-number">3.</span> <span class="nav-text">使用Queue类</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Allen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

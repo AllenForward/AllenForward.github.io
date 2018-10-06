@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="-JavaScript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="执行上下文执行上下文，也可叫做执行上下文环境。每次当控制器转到ECMAScript可执行代码的时候，就会进入到一个执行上下文。而JavaScript的执行环境大致分为这三种： *  全局环境 *  函数环境 *  eval（很多大佬都说不建议使用） 接下来问题来了，运行一个JavaScript程序，必然会产生许多个执行上下文，那么多创建的执行上下文如何管理呢？JavaScript引擎会以栈的方式来">
+<meta name="keywords" content="-JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript基础复习第一篇">
+<meta property="og:url" content="http://yoursite.com/2018/07/18/作用域/index.html">
+<meta property="og:site_name" content="Allen">
+<meta property="og:description" content="执行上下文执行上下文，也可叫做执行上下文环境。每次当控制器转到ECMAScript可执行代码的时候，就会进入到一个执行上下文。而JavaScript的执行环境大致分为这三种： *  全局环境 *  函数环境 *  eval（很多大佬都说不建议使用） 接下来问题来了，运行一个JavaScript程序，必然会产生许多个执行上下文，那么多创建的执行上下文如何管理呢？JavaScript引擎会以栈的方式来">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-10T14:16:30.971Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript基础复习第一篇">
+<meta name="twitter:description" content="执行上下文执行上下文，也可叫做执行上下文环境。每次当控制器转到ECMAScript可执行代码的时候，就会进入到一个执行上下文。而JavaScript的执行环境大致分为这三种： *  全局环境 *  函数环境 *  eval（很多大佬都说不建议使用） 接下来问题来了，运行一个JavaScript程序，必然会产生许多个执行上下文，那么多创建的执行上下文如何管理呢？JavaScript引擎会以栈的方式来">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/18/作用域/"/>
+
+
+
+
+
+  <title>JavaScript基础复习第一篇 | Allen</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Allen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天告诉自己一次：“我真的很不错”。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/18/作用域/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Allen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Allen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript基础复习第一篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-18T12:06:38+08:00">
+                2018-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript基础复习/" itemprop="url" rel="index">
+                    <span itemprop="name">-JavaScript基础复习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h2><p>执行上下文，也可叫做执行上下文环境。每次当控制器转到ECMAScript可执行代码的时候，就会进入到一个执行上下文。而JavaScript的执行环境大致分为这三种：</p>
+<pre><code>*  全局环境
+*  函数环境
+*  eval（很多大佬都说不建议使用）
+</code></pre><p>接下来问题来了，运行一个JavaScript程序，必然会产生许多个执行上下文，那么多创建的执行上下文如何管理呢？<br><br>JavaScript引擎会以栈的方式来处理它们，这个栈，我们称其为执行上下文栈（Execution context stack，ECS）。栈底永远都是全局上下文，而栈顶就是当前正在执行的上下文。<br><br>为了更加理解执行上下文栈的工作原理，我们将执行上下文栈定义为一个数组。</p>
+<pre><code>EC = []
+</code></pre><p>然后，我们运行一段代码。</p>
+<pre><code>function baz() {
+    console.log(&apos;baz&apos;)
+}
+
+function bar() {
+    baz();
+    console.log(&apos;bar&apos;);
+}
+
+function foo() {
+    bar();
+    console.log(&apos;finish&apos;);
+}
+
+foo();
+</code></pre><p>当JavaScript开始要解释执行代码的时候，最先遇到的就是全局代码，所以第一步，全局上下文(这里我们用globalContext表示)压入执行栈EC中。所以在程序没有没有结束之前，栈底永远都是全局上下文，而栈顶就是当前正在执行的上下文。</p>
+<pre><code>// 全局上下文入栈
+EC.push(globalContext);
+</code></pre><p>全局上下文入栈后，代码继续执行，遇到了foo()，foo函数调用并创建了自己的执行上下文，所以foo的执行上下文入栈。</p>
+<pre><code>// foo执行上下文入栈
+EC.push(foo context);
+</code></pre><p>foo函数中调用了bar函数，所以bar的执行上下文入栈。</p>
+<pre><code>// bar执行上下文入栈
+EC.push(bar context);
+</code></pre><p>紧接着，靠，bar函数中又调用了baz函数，好吧，baz的执行上下文入栈。</p>
+<pre><code>// baz执行上下文入栈
+EC.push(baz context);
+</code></pre><p>baz的可执行代码中，没有生成其他的执行上下文，所以代码顺利执行完毕，此时baz的执行上下文从EC中弹出。</p>
+<pre><code>// baz执行上下文出栈
+EC.pop(baz context);
+</code></pre><p>baz的执行上下文弹出后，继续执行bar中的可执行代码，同样顺利执行完成，此时bar执行上下文出栈。</p>
+<pre><code>// bar执行上下文出栈
+EC.pop(bar context)
+</code></pre><p>bar的执行上下文弹出后，继续执行foo中的可执行代码，输出’finish’，代码顺利执行完成。此时EC栈中只剩全局执行上下文。</p>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>作用域是一组明确定义的规则，它定义如何在某些位置存储变量，以及如何在稍后找到这些变量,换言之,作用域的作用是确定当前执行代码对变量的访问权限.</p>
+<ol>
+<li><h4 id="词法作用域与动态作用域"><a href="#词法作用域与动态作用域" class="headerlink" title="词法作用域与动态作用域"></a>词法作用域与动态作用域</h4><p>作用域的工作方式有两种占统治地位的模型。其中的第一种是最最常见，在绝大多数的编程语言中被使用的。它称为词法作用域。另一种仍然被一些语言（比如 Bash 脚本，Perl 中的一些模式，等等）使用的模型，称为 动态作用域。</p>
+<ol>
+<li><h5 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h5>词法作用域，也叫静态作用域，它的作用域是指在词法分析阶段就确定了，不会改变。</li>
+<li><h5 id="动态作用域"><a href="#动态作用域" class="headerlink" title="动态作用域"></a>动态作用域</h5><p>动态作用域本身不关心函数和作用域是在哪里和如何被声明的，而是关心它们是从何处被调用的。换句话说，它的作用域链条是基于调用栈的，而不是代码中作用域的嵌套。<br>词法作用域关心的是 函数在何处被声明，但是动态作用域关心的是函数 从何处 被调用。<br><br>接下来，我们来写一段代码来了解一下两者的区别。</p>
+<pre><code>function foo() {
+    console.log(a);
+}
+
+function bar() {
+    var a = &apos;bar scope&apos;;
+    foo();
+}
+
+var a = &apos;window scope&apos;;
+bar();
+</code></pre><p>按照词法作用域的概念，函数在定义的时候就决定了函数的作用域。所以当foo函数执行后，首先在自己的作用域中查找变量a，后来发现没有找到，于是顺着作用域链到全局作用域中查找，找到并赋值为’window scope’，所以控制台输出’window scope’。<br><br>按照动态作用域的概念，函数在调用的时候决定函数的作用域。所以当foo函数执行后，首先在自己的作用域中查找变量a，发现没有找到，于是顺着作用域链到调用foo函数的作用域中(这里值bar的作用域)查找，找到并赋值为’bar scope’，所以控制台输出’bar scope’。<br><br>通过以上代码我们发现，javascript采用的是词法作用域。</p>
+</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># -JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/09/第一篇/" rel="next" title="第一篇,如何用Hexo搭建属于自己的博客">
+                <i class="fa fa-chevron-left"></i> 第一篇,如何用Hexo搭建属于自己的博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/10/栈和队列/" rel="prev" title="用JavaScript实现栈和队列">
+                用JavaScript实现栈和队列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Allen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#执行上下文"><span class="nav-number">1.</span> <span class="nav-text">执行上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域"><span class="nav-number">2.</span> <span class="nav-text">作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#词法作用域与动态作用域"><span class="nav-number">2.0.1.</span> <span class="nav-text">词法作用域与动态作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#词法作用域"><span class="nav-number">2.0.1.1.</span> <span class="nav-text">词法作用域</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#动态作用域"><span class="nav-number">2.0.1.2.</span> <span class="nav-text">动态作用域</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Allen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
