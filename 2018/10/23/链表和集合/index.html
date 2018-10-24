@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;前面我们学习了常见的栈和队列两种数据结构，同时对数组这种数据结构有了更深的认识，在这篇文章中，我们将学习如何实现和使用链表以及集合两种数据结构。&amp;emsp;&amp;emsp;要存储多个元素，数组（或列表）可能是最常用的数据结构。正如本书之前提到过的，每种语言都实现了数组。这种数据结构非常方便，提供了一个便利的[]语法来访问它的元素。然而，这种数据结构有一个缺点：（在大多数语言中）">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用JavaScript实现链表和集合">
+<meta property="og:url" content="http://yoursite.com/2018/10/23/链表和集合/index.html">
+<meta property="og:site_name" content="Allen">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;前面我们学习了常见的栈和队列两种数据结构，同时对数组这种数据结构有了更深的认识，在这篇文章中，我们将学习如何实现和使用链表以及集合两种数据结构。&amp;emsp;&amp;emsp;要存储多个元素，数组（或列表）可能是最常用的数据结构。正如本书之前提到过的，每种语言都实现了数组。这种数据结构非常方便，提供了一个便利的[]语法来访问它的元素。然而，这种数据结构有一个缺点：（在大多数语言中）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-24T14:36:20.705Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用JavaScript实现链表和集合">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;前面我们学习了常见的栈和队列两种数据结构，同时对数组这种数据结构有了更深的认识，在这篇文章中，我们将学习如何实现和使用链表以及集合两种数据结构。&amp;emsp;&amp;emsp;要存储多个元素，数组（或列表）可能是最常用的数据结构。正如本书之前提到过的，每种语言都实现了数组。这种数据结构非常方便，提供了一个便利的[]语法来访问它的元素。然而，这种数据结构有一个缺点：（在大多数语言中）">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/23/链表和集合/"/>
+
+
+
+
+
+  <title>用JavaScript实现链表和集合 | Allen</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Allen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">每天告诉自己一次：“我真的很不错”。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/23/链表和集合/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Allen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Allen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用JavaScript实现链表和集合</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-23T20:09:05+08:00">
+                2018-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript之常见数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript之常见数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;前面我们学习了常见的栈和队列两种数据结构，同时对数组这种数据结构有了更深的认识，在这篇文章中，我们将学习如何实现和使用链表以及集合两种数据结构。<br>&emsp;&emsp;要存储多个元素，数组（或列表）可能是最常用的数据结构。正如本书之前提到过的，每种语言都实现了数组。这种数据结构非常方便，提供了一个便利的[]语法来访问它的元素。然而，这种数据结构有一个缺点：（在大多数语言中）数组的大小是固定的，从数组的起点或中间插入或移除项的成本很高，因为需要移动元素（尽管我们已经学过的JavaScript的Array类方法可以帮我们做这些事，但背后的情况同样是这样）。</p>
+<p>&emsp;&emsp;集合是由一组无序且唯一（即不能重复）的项组成的。这个数据结构使用了与有限集合相同的数学概念，但应用在计算机科学的数据结构中。<br>&emsp;&emsp;你也可以把集合想象成一个既没有重复元素，也没有顺序概念的数组。</p>
+<h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><p>&emsp;&emsp;链表存储有序的元素集合，但不同于数组，链表中的元素在内存中并不是连续放置的。每个元素由一个存储元素本身的节点和一个指向下一个元素的引用（也称指针或链接）组成。<br>&emsp;&emsp;相对于传统的数组，链表的一个好处在于，添加或移除元素的时候不需要移动其他元素。然而，链表需要使用指针，因此实现链表时需要额外注意。数组的另一个细节是可以直接访问任何位置的任何元素，而要想访问链表中间的一个元素，需要从起点（表头）开始迭代列表直到找到所需的元素<br>&emsp;&emsp;现实中也有一些链表的例子。第一个例子就是康加舞队。每个人是一个元素，手就是链向下一个人的指针。可以向队列中增加人——只需要找到想加入的点，断开连接，插入一个人，再重新连接起来。<br>&emsp;&emsp;另一个例子是寻宝游戏。你有一条线索，这条线索是指向寻找下一条线索的地点的指针。你顺着这条链接去下一个地点，得到另一条指向再下一处的线索。得到列表中间的线索的唯一办法，就是从起点（第一条线索）顺着列表寻找。</p>
+<h2 id="创建一个链表"><a href="#创建一个链表" class="headerlink" title="创建一个链表"></a>创建一个链表</h2><p>理解了链表是什么之后，现在就要开始实现我们的数据结构了。以下是我们的LinkedList类的骨架：</p>
+<pre><code>function LinkedList() {
+    let Node = function(element) {
+        this.element = element;
+        this.next = null;
+    }
+    let length = 0;
+    let head = null;
+    // 方法
+}
+</code></pre><p>&emsp;&emsp;LinkedList数据结构还需要一个Node辅助类（行{1}）。Node类表示要加入列表的项。它包含一个element属性，即要添加到列表的值，以及一个next属性，即指向列表中下一个节点项的指针。<br>&emsp;&emsp;LinkedList类也有存储列表项的数量的length属性（内部/私有变量）。另一个重要的点是，我们还需要存储第一个节点的引用。为此，可以把这个引用存储在一个称为head的变量中。<br>&emsp;&emsp;然后就是LinkedList类的方法。在实现这些方法之前，先来看看它们的作用。</p>
+<ul>
+<li>append(element)：向列表尾部添加一个新的项。</li>
+<li>insert(position, element)：向列表的特定位置插入一个新的项。</li>
+<li>remove(element)：从列表中移除一项。</li>
+<li>indexOf(element)：返回元素在列表中的索引。如果列表中没有该元素则返回-1。</li>
+<li>removeAt(position)：从列表的特定位置移除一项。</li>
+<li>isEmpty()：如果链表中不包含任何元素，返回true，如果链表长度大于0则返回false。</li>
+<li>size()：返回链表包含的元素个数。与数组的length属性类似。</li>
+<li>toString()：由于列表项使用了Node类，就需要重写继承自JavaScript对象默认的toString方法，让其只输出元素的值。</li>
+</ul>
+<h3 id="向链表尾部追加元素"><a href="#向链表尾部追加元素" class="headerlink" title="向链表尾部追加元素"></a>向链表尾部追加元素</h3><p>向LinkedList对象尾部添加一个元素时，可能有两种场景：列表为空，添加的是第一个元素，或者列表不为空，向其追加元素。<br>append方法实现如下：</p>
+<pre><code>this.append = function(element) {
+    let node = new Node(element);
+    let current = null;
+    if (!head) {
+         // 列表中第一个节点
+        head = node;
+    } else {
+        current = head;
+        // 循环列表，直到找到最后一项
+        while(current.next) {
+            current.next = current;
+        }
+        // 找到最后一项，将其next赋为node，建立链接
+        current.next = node;
+    }
+    // 更新链表长度
+    length++;
+}
+</code></pre><p>&emsp;&emsp;首先需要做的是把element作为值传入，创建node节点。<br>&emsp;&emsp;其次先来实现第一个场景，向空链表中添加一个元素，如果head元素为null（列表为空），就意味着在向列表添加第一个元素。因此要做的就是让head元素指向node元素。下一个node元素将会自动成为null。<br>&emsp;&emsp;<strong> tip：列表最后一个节点的下一个元素始终是null。 </strong><br>&emsp;&emsp;第二种场景，向不为空的链表中添加元素，要向列表的尾部添加一个元素，首先需要找到最后一个元素。记住，我们只有第一个元素的引用，因此需要循环访问列表，直到找到最后一项。为此，我们需要一个指向列表中当前项的变量（current）。循环访问列表时，当current.next元素为null时，我们就知道已经到达列表尾部了。然后要做的就是让当前（也就是最后一个）元素的next指针指向想要添加到列表的节点。<br>&emsp;&emsp;最后，我们在更新链表长度，length++。</p>
+<h3 id="从链表中移除元素"><a href="#从链表中移除元素" class="headerlink" title="从链表中移除元素"></a>从链表中移除元素</h3><p>现在，让我们看看如何从LinkedList对象中移除元素。移除元素也有两种场景：第一种是移除第一个元素，第二种是移除第一个以外的任一元素。我们要实现两种remove方法：第一种是从特定位置移除一个元素，第二种是根据元素的值移除元素（稍后我们会展示第二种remove方法）。<br>removeAt方法实现如下：</p>
+<pre><code>this.removeAt = function(position) {
+    // 保证位置在链表内
+    if (position &gt;= 0 &amp;&amp; position &lt; length) {
+        let current = head;
+        let previous = null;
+        let index = 0;
+        // 移除第一项
+        if (position === 0) {
+            head = current.next;
+        } else {
+            while(index &lt; position) {
+                previous = current;
+                current = current.next;
+                index++;
+            }
+            // 将previous与current的下一项链接起来：跳过current，从而移除它
+            previous.next = current.next;
+        }
+        length--;
+        return current.element;
+    } else {
+        return null;
+    }
+} 
+</code></pre><p>&emsp;&emsp;我们要从列表中移除第一个元素，要做的就是让head指向列表的第二个元素。我们将用current变量创建一个对列表中第一个元素的引用。这样current变量就是对列表中第一个元素的引用。如果把head赋为current.next，就会移除第一个元素。<br>&emsp;&emsp;现在，假设我们要移除列表的最后一项或者中间某一项。为此，需要依靠一个细节来迭代列表，直到到达目标位置：current变量总是为对所循环列表的当前元素的引用。我们还要一个对当前元素的前一个元素的引用；它被命名为previous。因此，要从列表中移除当前元素，要做的就是将previous.next和current.next链接起来。这样，当前元素就会被丢弃在计算机内存中，等着被垃圾回收器清除。<br>&emsp;&emsp;对于最后一个元素，当我们在行跳出循环时，current变量将是对列表中最后一个元素的引用（要移除的元素）。current.next的值将是null（因为它是最后一个元素）。由于还保留了对previous元素的引用（当前元素的前一个元素），previous.next就指向了current。那么要移除current，要做的就是把previous.next的值改变为current.next。<br>&emsp;&emsp;对于列表中间的元素，current变量是对要移除元素的引用。previous变量是对要移除元素的前一个元素的引用。那么要移除current元素，需要做的就是将previous.next与current.next链接起来。</p>
+<h3 id="在任意位置插入一个元素"><a href="#在任意位置插入一个元素" class="headerlink" title="在任意位置插入一个元素"></a>在任意位置插入一个元素</h3><p>接下来，我们要实现insert方法。使用这个方法可以在任意位置插入一个元素。<br>insert方法实现如下：</p>
+<pre><code>this.insert = function(element, position) {
+    if (position &gt;= 0 &amp;&amp; position &lt; length) {
+        let node = new Node(element);
+        let current = head;
+        let previous = null;
+        let index = 0;
+        if (position === 0) {
+            node.next = current;
+            head = node;
+        } else {
+            while(index &lt; position) {
+                previous = current;
+                current = current.next;
+                index++;
+            }
+            node.next = current;
+            previous.next = node;
+        }
+        length++;
+        return true;
+    } else {
+        return false;
+    }
+}
+</code></pre><p>&emsp;&emsp;向列表中插入元素也有两种场景，第一种场景，需要在列表的起点，也就是第一个位置添加一个元素。<br>&emsp;&emsp;current变量是对列表中第一个元素的引用。我们需要做的是把node.next的值设为current（列表中第一个元素）。现在head和node.next都指向了current。接下来要做的就是<br>把head的引用改为node，这样列表中就有了一个新元素。<br>&emsp;&emsp;第二种场景：在列表中间或尾部添加一个元素。首先，我们需要循环遍历列表，找到目标插入位置。当跳出循环时，current变量将是对想要插入新元素的位置之后的一个元素的引用，而previous将是对想要插入新元素的位置之前一个元素的引用。在这种情况下，我们要在previous和current之间添加新项。因此，首先需要把新项（node）和当前项链接起来，然后需要改变previous和current之间的链接。我们还需要让previous.next指向node。</p>
+<h3 id="查找元素在链表中的位置"><a href="#查找元素在链表中的位置" class="headerlink" title="查找元素在链表中的位置"></a>查找元素在链表中的位置</h3><p>indexOf方法接收一个元素的值，如果在列表中找到它，就返回元素的位置，否则返回-1。<br>indexOf方法实现：</p>
+<pre><code>this.indexOf = function(element) {
+    let current = head;
+    let index = 0;
+    while(current) {
+        if (current.element === element) {
+            return index;
+        }
+        index++;
+        current = current.next;
+    }
+    return -1;
+}
+</code></pre><p>&emsp;&emsp;一如既往，我们需要一个变量来帮助我们循环访问列表，这个变量是current，它的初始值是head（列表的第一个元素——我们还需要一个index变量来计算位置数。然后循环访问元素，检查当前元素是否是我们要找的。如果是，就返回它的位置；如果不是，就继续计数，检查列表中下一个节点。<br>&emsp;&emsp;如果列表为空，或是到达列表的尾部（current = current.next将是null），循环就不会执行。如果没有找到值，就返回-1。</p>
+<h3 id="实现其他方法"><a href="#实现其他方法" class="headerlink" title="实现其他方法"></a>实现其他方法</h3><h4 id="1-remove方法"><a href="#1-remove方法" class="headerlink" title="1. remove方法"></a>1. remove方法</h4><p>前面我们实现了removeAt方法，该方法是根据元素位置删除链表中的元素，但如果我们使用上面刚实现的indexOf方法，我们可以实现根据元素来删除链表元素。<br>remove方法实现如下：</p>
+<pre><code>this.remove = function(element) {
+    const index = this.indexOf(element);
+    return this.removeAt(index);
+}
+</code></pre><p>&emsp;&emsp;传入元素的值，就能找到它的位置，然后调用removeAt方法并传入找到的位置。</p>
+<h4 id="2-toString方法"><a href="#2-toString方法" class="headerlink" title="2. toString方法"></a>2. toString方法</h4><pre><code>this.toString = function() {
+    let current = head;
+    let string = &apos;&apos;;
+    while(current) {
+        string += &apos; &apos; + current.element;
+        current = current.next;
+    }
+    return string.trim().split(&apos; &apos;);
+}
+</code></pre><h4 id="3-isEmpty方法"><a href="#3-isEmpty方法" class="headerlink" title="3. isEmpty方法"></a>3. isEmpty方法</h4><pre><code>this.isEmpty = function() {
+    return length === 0;
+}
+</code></pre><h4 id="4-size方法"><a href="#4-size方法" class="headerlink" title="4. size方法"></a>4. size方法</h4><pre><code>this.size = function() {
+    return length;
+}
+</code></pre><h4 id="5-getHead方法"><a href="#5-getHead方法" class="headerlink" title="5. getHead方法"></a>5. getHead方法</h4><pre><code>this.getHead = function() {
+    return head;
+}
+</code></pre><p>&emsp;&emsp;head变量是LinkedList类的私有变量（这意味着它不能在LinkedList实例外部被访问和更改，只有通过LinkedList实例才可以）。但是，如果我们需要在类的实现外部循环访问列表，就需要提供一种获取类的第一个元素的方法。</p>
+<h2 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/10/栈和队列/" rel="next" title="用JavaScript实现栈和队列">
+                <i class="fa fa-chevron-left"></i> 用JavaScript实现栈和队列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Allen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#链表"><span class="nav-number">1.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个链表"><span class="nav-number">1.1.</span> <span class="nav-text">创建一个链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#向链表尾部追加元素"><span class="nav-number">1.1.1.</span> <span class="nav-text">向链表尾部追加元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从链表中移除元素"><span class="nav-number">1.1.2.</span> <span class="nav-text">从链表中移除元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在任意位置插入一个元素"><span class="nav-number">1.1.3.</span> <span class="nav-text">在任意位置插入一个元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找元素在链表中的位置"><span class="nav-number">1.1.4.</span> <span class="nav-text">查找元素在链表中的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现其他方法"><span class="nav-number">1.1.5.</span> <span class="nav-text">实现其他方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-remove方法"><span class="nav-number">1.1.5.1.</span> <span class="nav-text">1. remove方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-toString方法"><span class="nav-number">1.1.5.2.</span> <span class="nav-text">2. toString方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-isEmpty方法"><span class="nav-number">1.1.5.3.</span> <span class="nav-text">3. isEmpty方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-size方法"><span class="nav-number">1.1.5.4.</span> <span class="nav-text">4. size方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-getHead方法"><span class="nav-number">1.1.5.5.</span> <span class="nav-text">5. getHead方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双向链表"><span class="nav-number">1.2.</span> <span class="nav-text">双向链表</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Allen</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
