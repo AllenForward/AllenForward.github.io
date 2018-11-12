@@ -89,14 +89,14 @@
 <meta name="description" content="new运算符，在MDN中是这样介绍的：new 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象的实例。 描述创建一个用户自定义的对象需要两步：  通过编写函数来定义对象类型。 通过new来创建对象实例。  当然只看这些文字概念可能会显得有点难以理解，我们来举个例子： function Person(age, name) {   this.age = age;   this.name">
 <meta name="keywords" content="-JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript基础之模拟new实现">
+<meta property="og:title" content="JavaScript之模拟new实现">
 <meta property="og:url" content="http://yoursite.com/2018/11/08/模拟new实现/index.html">
 <meta property="og:site_name" content="Allen">
 <meta property="og:description" content="new运算符，在MDN中是这样介绍的：new 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象的实例。 描述创建一个用户自定义的对象需要两步：  通过编写函数来定义对象类型。 通过new来创建对象实例。  当然只看这些文字概念可能会显得有点难以理解，我们来举个例子： function Person(age, name) {   this.age = age;   this.name">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-08T14:04:02.174Z">
+<meta property="og:updated_time" content="2018-11-12T14:43:50.258Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript基础之模拟new实现">
+<meta name="twitter:title" content="JavaScript之模拟new实现">
 <meta name="twitter:description" content="new运算符，在MDN中是这样介绍的：new 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象的实例。 描述创建一个用户自定义的对象需要两步：  通过编写函数来定义对象类型。 通过new来创建对象实例。  当然只看这些文字概念可能会显得有点难以理解，我们来举个例子： function Person(age, name) {   this.age = age;   this.name">
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <title>JavaScript基础之模拟new实现 | Allen</title>
+  <title>JavaScript之模拟new实现 | Allen</title>
   
 
 
@@ -277,7 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript基础之模拟new实现</h1>
+          <h1 class="post-title" itemprop="name headline">JavaScript之模拟new实现</h1>
         
 
         <div class="post-meta">
@@ -312,8 +312,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript基础复习/" itemprop="url" rel="index">
-                    <span itemprop="name">-JavaScript基础复习</span>
+                  <a href="/categories/JavaScript基础/" itemprop="url" rel="index">
+                    <span itemprop="name">-JavaScript基础</span>
                   </a>
                 </span>
 
@@ -381,11 +381,10 @@ person.sayName(); // I am Allen
 <h1 id="模拟实现第一版"><a href="#模拟实现第一版" class="headerlink" title="模拟实现第一版"></a>模拟实现第一版</h1><pre><code>function new2() {
   // 创建一个中间对象
   let res = Object.create(Object.prototype);
-  // 去除构造函数
+  // 获取构造函数
   let constructor = Array.prototype.shift.call(arguments);
   // 将实例对象的__proto__指向构造函数的原型，这样实例对象可以函数到构造函数原型上面的属性和方法
   res.__proto__ = constructor.prototype;
-  // ret为构造函数执行的结果。将构造函数内部的this指向修改为指向res，即为实例对象。
   constructor.apply(res, arguments);
   return res;
 }
@@ -432,7 +431,7 @@ console.log(person.name); // Allen
 <pre><code>function new2() {
   // 创建一个中间对象
   let res = Object.create(Object.prototype);
-  // 去除构造函数
+  // 获取构造函数
   let constructor = Array.prototype.shift.call(arguments);
   // 将实例对象的__proto__指向构造函数的原型，这样实例对象可以函数到构造函数原型上面的属性和方法
   res.__proto__ = constructor.prototype;
@@ -484,6 +483,10 @@ console.log(person.name); // Allen
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/11/模拟call和apply/" rel="prev" title="JavaScript之模拟call和apply">
+                JavaScript之模拟call和apply <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -560,7 +563,7 @@ console.log(person.name); // Allen
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -571,7 +574,7 @@ console.log(person.name); // Allen
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

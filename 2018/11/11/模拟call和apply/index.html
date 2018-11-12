@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo," />
+  <meta name="keywords" content="-JavaScript," />
 
 
 
@@ -86,28 +86,18 @@
 
 
 
-<meta name="description" content="今天,下定决心终于把Hexo搭建好了(虽然过程简单无比),本想着搭好以后随便写点东西记录一下,明天开始写点学习的笔记,忽然想起搭建博客的初衷,觉得自己不应该再懒散下去,遂决定还是写点什么,东西虽然浅显,主要还是希望自己能够坚持下去,加油吧! 准备工作使用Hexo搭建博客,你需要在你的电脑上做点准备工作:  安装Git Windows：下载并安装 Git. Mac：使用 Homebrew, MacP">
-<meta name="keywords" content="Hexo">
+<meta name="description" content="call在MDN中对call的定义如下：  call() 方法调用一个函数, 其具有一个指定的this值和分别地提供的参数(参数的列表)。  看个例子： let obj = {   a: 1 }; function say() {   console.log(this.a); } say.call(obj); // 1 执行代码，我们发现call方法的作用大致有两点：  改变了this指向，thi">
+<meta name="keywords" content="-JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第一篇,如何用Hexo搭建属于自己的博客">
-<meta property="og:url" content="http://yoursite.com/2018/07/09/第一篇/index.html">
+<meta property="og:title" content="JavaScript之模拟call和apply">
+<meta property="og:url" content="http://yoursite.com/2018/11/11/模拟call和apply/index.html">
 <meta property="og:site_name" content="Allen">
-<meta property="og:description" content="今天,下定决心终于把Hexo搭建好了(虽然过程简单无比),本想着搭好以后随便写点东西记录一下,明天开始写点学习的笔记,忽然想起搭建博客的初衷,觉得自己不应该再懒散下去,遂决定还是写点什么,东西虽然浅显,主要还是希望自己能够坚持下去,加油吧! 准备工作使用Hexo搭建博客,你需要在你的电脑上做点准备工作:  安装Git Windows：下载并安装 Git. Mac：使用 Homebrew, MacP">
+<meta property="og:description" content="call在MDN中对call的定义如下：  call() 方法调用一个函数, 其具有一个指定的this值和分别地提供的参数(参数的列表)。  看个例子： let obj = {   a: 1 }; function say() {   console.log(this.a); } say.call(obj); // 1 执行代码，我们发现call方法的作用大致有两点：  改变了this指向，thi">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/1.png">
-<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/2.png">
-<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/3.png">
-<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/4.png">
-<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/5.png">
-<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/6.png">
-<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/7.png">
-<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/8.png">
-<meta property="og:image" content="http://yoursite.com/2018/07/09/第一篇/1.png">
-<meta property="og:updated_time" content="2018-09-10T14:16:30.974Z">
+<meta property="og:updated_time" content="2018-11-12T14:43:12.477Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第一篇,如何用Hexo搭建属于自己的博客">
-<meta name="twitter:description" content="今天,下定决心终于把Hexo搭建好了(虽然过程简单无比),本想着搭好以后随便写点东西记录一下,明天开始写点学习的笔记,忽然想起搭建博客的初衷,觉得自己不应该再懒散下去,遂决定还是写点什么,东西虽然浅显,主要还是希望自己能够坚持下去,加油吧! 准备工作使用Hexo搭建博客,你需要在你的电脑上做点准备工作:  安装Git Windows：下载并安装 Git. Mac：使用 Homebrew, MacP">
-<meta name="twitter:image" content="http://yoursite.com/2018/07/09/第一篇/1.png">
+<meta name="twitter:title" content="JavaScript之模拟call和apply">
+<meta name="twitter:description" content="call在MDN中对call的定义如下：  call() 方法调用一个函数, 其具有一个指定的this值和分别地提供的参数(参数的列表)。  看个例子： let obj = {   a: 1 }; function say() {   console.log(this.a); } say.call(obj); // 1 执行代码，我们发现call方法的作用大致有两点：  改变了this指向，thi">
 
 
 
@@ -137,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/09/第一篇/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/11/11/模拟call和apply/"/>
 
 
 
 
 
-  <title>第一篇,如何用Hexo搭建属于自己的博客 | Allen</title>
+  <title>JavaScript之模拟call和apply | Allen</title>
   
 
 
@@ -270,7 +260,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/09/第一篇/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/模拟call和apply/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Allen">
@@ -287,7 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">第一篇,如何用Hexo搭建属于自己的博客</h1>
+          <h1 class="post-title" itemprop="name headline">JavaScript之模拟call和apply</h1>
         
 
         <div class="post-meta">
@@ -299,8 +289,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-09T20:55:05+08:00">
-                2018-07-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-11T20:20:20+08:00">
+                2018-11-11
               </time>
             
 
@@ -322,8 +312,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
+                  <a href="/categories/JavaScript基础/" itemprop="url" rel="index">
+                    <span itemprop="name">-JavaScript基础</span>
                   </a>
                 </span>
 
@@ -359,92 +349,166 @@
       
 
       
-        <p>今天,下定决心终于把Hexo搭建好了(虽然过程简单无比),本想着搭好以后随便写点东西记录一下,明天开始写点学习的笔记,忽然想起搭建博客的初衷,觉得自己不应该再懒散下去,遂决定还是写点什么,东西虽然浅显,主要还是希望自己能够坚持下去,加油吧!</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>使用Hexo搭建博客,你需要在你的电脑上做点准备工作:</p>
-<ol>
-<li><h4 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h4><ul>
-<li>Windows：下载并安装 <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git</a>.</li>
-<li>Mac：使用 <a href="http://mxcl.github.com/homebrew/" target="_blank" rel="noopener">Homebrew</a>, <a href="http://www.macports.org/" target="_blank" rel="noopener">MacPorts</a> ：brew install git;或下载 <a href="http://sourceforge.net/projects/git-osx-installer/" target="_blank" rel="noopener">安装程序</a> 安装。</li>
-<li>Linux (Ubuntu, Debian)：sudo apt-get install git-core</li>
-<li>Linux (Fedora, Red Hat, CentOS)：sudo yum install git-core</li>
-</ul>
-</li>
-<li><h4 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h4>安装 Node.js 的最佳方式是使用 <a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">nvm</a>。<br>cURL:<pre><code>$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-</code></pre> wget:<pre><code>$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh
-</code></pre>安装完成后，重启终端并执行下列命令即可安装 Node.js。<pre><code>$ nvm install stable
-</code></pre>或者您也可以下载 <a href="http://nodejs.org/" target="_blank" rel="noopener">安装程序</a> 来安装。</li>
-<li><h4 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h4><p>所有必备的应用程序安装完成后，即可使用 npm 安装 Hexo。</p>
-<pre><code>npm i -g hexo-cli
-</code></pre></li>
-<li><h4 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h4><p>关于什么是SSH,请自行百度.</p>
-<ul>
-<li><p>本地生成公钥私钥<br>   $ssh-keygen -t rsa -C “<a href="mailto:youremail@xx.com" target="_blank" rel="noopener">youremail@xx.com</a>“</p>
-</li>
-<li><p>添加公钥到Github<br>   cat ~/.ssh/id_rsa.pub<br> 复制这段你看不懂的密钥</p>
-</li>
-<li>登录 Github，右上角 头像 -&gt; Settings —&gt; SSH keys —&gt; Add SSH key。把公钥粘贴到key中，填好title并点击 Add key。</li>
-</ul>
-</li>
-</ol>
-<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><ol>
-<li><p>找到一个你喜欢的文件夹打开Git Bash，输入</p>
-<p>   hexo i  //init的缩写<br>   hexo g //generetor的缩写<br>   hexo s //server的缩写</p>
-</li>
-<li><p>打开浏览器输入 localhost:4000查看</p>
-<img src="/2018/07/09/第一篇/1.png">
-<p>如果在你的浏览器中出现上图的页面，恭喜你，现在你已经可以在这个主题下写博客了。<br>但你是不是觉得现在的主题不是你想要的style，行，Hexo有大量的主题可供选择，这里我选择了nexT主题。</p>
-</li>
-</ol>
-<h2 id="更换主题-——nexT"><a href="#更换主题-——nexT" class="headerlink" title="更换主题 ——nexT"></a>更换主题 ——nexT</h2><ol>
-<li><p>在你的站点根目录打开Git Bash，输入</p>
-<pre><code>git clone https://github.com/iissnan/hexo-theme-next themes/next
-</code></pre></li>
-<li><p>克隆完成后，打开站点配置文件找到theme字段，并将值landscape改成next。</p>
-<img src="/2018/07/09/第一篇/2.png"></li>
-<li><p>然后Git Bash输入</p>
-<pre><code>hexo clean  //清除缓存
-hexo g  //重新生成代码
-hexo s  //部署到本地
-// 浏览器输入localhost:4000查看
-</code></pre><img src="/2018/07/09/第一篇/3.png">
-</li>
-<li><p>选择nexT风格<br>nexT主题有三种风格选择，应用哪种风格完全取决你。</p>
+        <h1 id="call"><a href="#call" class="headerlink" title="call"></a>call</h1><p>在MDN中对call的定义如下：</p>
 <blockquote>
-<ul>
-<li>Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白</li>
-<li>Mist - Muse 的紧凑版本，整洁有序的单栏外观</li>
-<li>Pisces - 双栏 Scheme，小家碧玉似的清新</li>
-</ul>
+<p>call() 方法调用一个函数, 其具有一个指定的this值和分别地提供的参数(参数的列表)。</p>
 </blockquote>
-<p>进入主题配置文件，找到scheme字段，将值改成上面三个的一个，你将看到另一个样子的nexT。</p>
-<pre><code>hexo clean
-hexo g
-hexo s
-</code></pre><p>如果你有更大的定制需求，你完全可以根据<a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">next官方文档</a>进行相应设置。</p>
-</li>
+<p>看个例子：</p>
+<pre><code>let obj = {
+  a: 1
+};
+function say() {
+  console.log(this.a);
+}
+say.call(obj); // 1
+</code></pre><p>执行代码，我们发现call方法的作用大致有两点：</p>
+<ol>
+<li>改变了this指向，this指向了obj</li>
+<li>执行了say方法</li>
 </ol>
-<h2 id="博客上传到Github"><a href="#博客上传到Github" class="headerlink" title="博客上传到Github"></a>博客上传到Github</h2><ol>
-<li><p>登录你的github，然后创建一个新的库</p>
-<img src="/2018/07/09/第一篇/4.png">
-<p>这里的项目名字必须为你的用户名</p>
-</li>
-<li><p>创建仓库成功以后点击设置创建一个page</p>
-<img src="/2018/07/09/第一篇/5.png">
-<img src="/2018/07/09/第一篇/6.png">
-<p>然后点击choose theme</p>
-<img src="/2018/07/09/第一篇/7.png">
-<p>点击确定，然后访问链接 https://你的用户名.github.io，这时候你的页面应用的是github选择的主题，接下来我们把Hexo的代码部署到github上。</p>
-</li>
-<li>修改站点配置文件<img src="/2018/07/09/第一篇/8.png"></li>
-<li><p>部署<br>安装一个插件</p>
-<pre><code>npm install hexo-deployer-git --save
-</code></pre><p>安装完成后执行</p>
-<pre><code>hexo d
-</code></pre><p>再次访问  https://你的用户名.github.io</p>
-<img src="/2018/07/09/第一篇/1.png">
-<p>大功告成了！！！关于如何在hexo新建文章，自己去官网看文档啊，我也是刚入门啊。</p>
-</li>
+<p>我们可以简单地理解为：</p>
+<pre><code>obj.fn = say;
+obj.fn();
+</code></pre><p>但是这样的话我们就给obj新增了一个fn属性，所以我们在执行完obj.fn方法后，需要进行删除操作。</p>
+<pre><code>delete obj.fn;
+</code></pre><p>这样，我们就实现call方法最简单的功能，但是这样写，并不能拿去用啊，好吧，我们下面就正式一点啦。</p>
+<h2 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h2><pre><code>Function.prototype.myCall = function(context) {
+  // 通过this获取调用call的函数
+  context.fn = this;
+  context.fn();
+  delete context.fn;
+}
+
+// 测试一波
+let obj = {
+  a: 1
+};
+function say() {
+  console.log(this.a);
+}
+say.myCall(obj); // 1
+</code></pre><p>输出也为1，第一步模拟成功。</p>
+<h2 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h2><p>我们知道，call方法还可以给定参数执行函数。例如:</p>
+<pre><code>let obj = {
+  a: 1
+};
+function say(name, age) {
+  console.log(name);
+  console.log(age);
+  console.log(this.a);
+}
+say.call(obj, &apos;Allen&apos;, 24);
+// Allen
+// 24
+// 1
+</code></pre><p>因为传入的参数长度不固定，我们可以定义一个数组变量，将Arguments对象中第二个到最后一个参数放入其中，然后把这个数组变量传到要执行的函数参数里面。</p>
+<pre><code>let args = [];
+for (let i = 1; i &lt; arguments.length; i++) {
+  args.push(&apos;arguments[&apos; + i + &apos;]&apos;);
+}
+// args: [&apos;arguments[1]&apos;, &apos;arguments[2]&apos;, &apos;arguments[3]&apos;......]
+context.fn(args.join(&apos;,&apos;));
+</code></pre><p>嗯，看起来也很简单嘛，但是等你运行代码，明显会一张黑人问号脸了。问题当然是出在把数组变量传到执行函数里面啦，因为我们这时传进函数的只是字符串。怎么办，我们可以使用eval方法。</p>
+<pre><code>eval(&apos;context.fn(&apos; + args + &apos;)&apos;);
+</code></pre><p>国际惯例，我们整理一下第二版:</p>
+<pre><code>Function.prototype.myCall = function(context) {
+  context.fn = this;
+  let args = [];
+  for (let i = 1; i &lt; arguments.length; i++) {
+    args.push(&apos;arguments[&apos; + i + &apos;]&apos;);
+  }
+  eval(&apos;context.fn(&apos;+ args +&apos;)&apos;);
+  delete context.fn;
+}
+say.myCall(obj, &apos;Allen&apos;, 24);
+// Allen
+// 24
+// 1
+</code></pre><p>Nice啊！</p>
+<h2 id="第三步"><a href="#第三步" class="headerlink" title="第三步"></a>第三步</h2><p>模拟效果已经差不多达到80%了，但我们还需要注意三个点。</p>
+<ol>
+<li>this参数，也就是call方法的第一个参数，可以传null，当this指向null，视为指向window（本文只考虑非严格模式下）。</li>
+<li>函数是可以有返回值的。</li>
+<li>context对象中可能存在fn属性。</li>
 </ol>
+<p>好在这些问题都是小问题，下面直接贴出最终版的实现：</p>
+<pre><code>Function.prototype.myCall = function(context) {
+  context = context || window;
+  let fn = 0;
+  while(context[fn]) {
+    fn++;
+  }
+  context[fn] = this;
+  let args = [];
+  for (let i = 1; i &lt; arguments.length; i++) {
+    args.push(&apos;arguments[&apos; + i +&apos;]&apos;);
+  }
+  let res = eval(&apos;context[fn](&apos;+ args +&apos;)&apos;);
+  delete context[fn];
+  return res;
+}
+// 测试
+let obj = {
+  a: 1
+};
+function say(name, age) {
+  console.log(name);
+  console.log(age);
+  console.log(this.a);
+  return {
+    b: 2
+  }
+}
+console.log(say.myCall(obj, &apos;Allen&apos;, 24));
+// Allen
+// 24
+// 1
+// { b: 2}
+</code></pre><h1 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h1><p>在MDN中对apply定义如下：</p>
+<blockquote>
+<p>apply() 方法调用一个具有给定this值的函数，以及作为一个数组（或类似数组对象）提供的参数。</p>
+<blockquote>
+<p>注意：call()方法的作用和 apply() 方法类似，区别就是call()方法接受的是参数列表，而apply()方法接受的是一个参数数组。<br>因为apply的模拟方法与call大致相似，我们这里直接给出代码：</p>
+</blockquote>
+</blockquote>
+<pre><code>Function.prototype.myApply = function(context) {
+  context = context || window;
+  let arr = arguments[1] || [];
+  let res = null;
+  let fn = 0;
+  while(context[fn]) {
+    fn++;
+  }
+  context[fn] = this;
+  if (arr.length === 0) {
+    res = context[fn]();
+  } else {
+    let args = [];
+    for (let i = 0; i &lt; arr.length; i++) {
+      args.push(&apos;arr[&apos; + i +&apos;]&apos;);
+    }
+    res = eval(&apos;context[fn](&apos;+ args +&apos;)&apos;);
+  }
+  delete context[fn];
+  return res;
+}
+// 按照惯例走波测试
+let obj = {
+  name: &apos;Mike&apos;
+}
+let smart = {
+  name: &apos;Allen&apos;,
+  getInfo: function(age, sex) {
+    console.log(this.name);
+    console.log(age);
+    console.log(sex);
+  }
+}
+smart.myApply(obj, [24, &apos;男&apos;]);
+// Mike
+// 24
+// 男
+</code></pre><p>本文的目的只是单纯地加深自己的理解，仅此而已。</p>
 
       
     </div>
@@ -462,7 +526,7 @@ hexo s
       
         <div class="post-tags">
           
-            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+            <a href="/tags/JavaScript/" rel="tag"># -JavaScript</a>
           
         </div>
       
@@ -475,15 +539,15 @@ hexo s
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/11/08/模拟new实现/" rel="next" title="JavaScript之模拟new实现">
+                <i class="fa fa-chevron-left"></i> JavaScript之模拟new实现
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/18/作用域/" rel="prev" title="JavaScrip作用域">
-                JavaScrip作用域 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -615,7 +679,7 @@ hexo s
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Git"><span class="nav-number">1.0.1.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Node-js"><span class="nav-number">1.0.2.</span> <span class="nav-text">安装Node.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Hexo"><span class="nav-number">1.0.3.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置SSH"><span class="nav-number">1.0.4.</span> <span class="nav-text">配置SSH</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速开始"><span class="nav-number">2.</span> <span class="nav-text">快速开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更换主题-——nexT"><span class="nav-number">3.</span> <span class="nav-text">更换主题 ——nexT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#博客上传到Github"><span class="nav-number">4.</span> <span class="nav-text">博客上传到Github</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#call"><span class="nav-number">1.</span> <span class="nav-text">call</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步"><span class="nav-number">1.1.</span> <span class="nav-text">第一步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步"><span class="nav-number">1.2.</span> <span class="nav-text">第二步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三步"><span class="nav-number">1.3.</span> <span class="nav-text">第三步</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apply"><span class="nav-number">2.</span> <span class="nav-text">apply</span></a></li></ol></div>
             
 
           </div>
