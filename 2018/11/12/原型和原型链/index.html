@@ -86,18 +86,21 @@
 
 
 
-<meta name="description" content="new运算符，在MDN中是这样介绍的：new 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象的实例。 描述创建一个用户自定义的对象需要两步：  通过编写函数来定义对象类型。 通过new来创建对象实例。  当然只看这些文字概念可能会显得有点难以理解，我们来举个例子： function Person(age, name) {   this.age = age;   this.name">
+<meta name="description" content="原型，每每看到关于js基础的文章，原型都是绕不开的话题，可见原型是个多么重要的概念。原型，我们在实际工作中可能不会特意注意到它。但我们却切切实实地使用了它。我们创建的每一个函数，都可以有一个prototype属性，该属性指向一个对象，这个对象，就是我们常说的原型对象。 原型举个例子： function Person(name, age) {   this.name = name;   this.a">
 <meta name="keywords" content="-JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript之模拟new实现">
-<meta property="og:url" content="http://yoursite.com/2018/11/08/模拟new实现/index.html">
+<meta property="og:title" content="JavaScript原型和原型链">
+<meta property="og:url" content="http://yoursite.com/2018/11/12/原型和原型链/index.html">
 <meta property="og:site_name" content="Allen">
-<meta property="og:description" content="new运算符，在MDN中是这样介绍的：new 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象的实例。 描述创建一个用户自定义的对象需要两步：  通过编写函数来定义对象类型。 通过new来创建对象实例。  当然只看这些文字概念可能会显得有点难以理解，我们来举个例子： function Person(age, name) {   this.age = age;   this.name">
+<meta property="og:description" content="原型，每每看到关于js基础的文章，原型都是绕不开的话题，可见原型是个多么重要的概念。原型，我们在实际工作中可能不会特意注意到它。但我们却切切实实地使用了它。我们创建的每一个函数，都可以有一个prototype属性，该属性指向一个对象，这个对象，就是我们常说的原型对象。 原型举个例子： function Person(name, age) {   this.name = name;   this.a">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-12T14:43:50.258Z">
+<meta property="og:image" content="http://yoursite.com/2018/11/12/原型和原型链/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/12/原型和原型链/2.png">
+<meta property="og:updated_time" content="2018-11-13T14:35:32.104Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript之模拟new实现">
-<meta name="twitter:description" content="new运算符，在MDN中是这样介绍的：new 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象的实例。 描述创建一个用户自定义的对象需要两步：  通过编写函数来定义对象类型。 通过new来创建对象实例。  当然只看这些文字概念可能会显得有点难以理解，我们来举个例子： function Person(age, name) {   this.age = age;   this.name">
+<meta name="twitter:title" content="JavaScript原型和原型链">
+<meta name="twitter:description" content="原型，每每看到关于js基础的文章，原型都是绕不开的话题，可见原型是个多么重要的概念。原型，我们在实际工作中可能不会特意注意到它。但我们却切切实实地使用了它。我们创建的每一个函数，都可以有一个prototype属性，该属性指向一个对象，这个对象，就是我们常说的原型对象。 原型举个例子： function Person(name, age) {   this.name = name;   this.a">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/12/原型和原型链/1.png">
 
 
 
@@ -127,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/08/模拟new实现/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/11/12/原型和原型链/"/>
 
 
 
 
 
-  <title>JavaScript之模拟new实现 | Allen</title>
+  <title>JavaScript原型和原型链 | Allen</title>
   
 
 
@@ -260,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/08/模拟new实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/原型和原型链/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Allen">
@@ -277,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript之模拟new实现</h1>
+          <h1 class="post-title" itemprop="name headline">JavaScript原型和原型链</h1>
         
 
         <div class="post-meta">
@@ -289,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-08T20:20:20+08:00">
-                2018-11-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-12T20:06:38+08:00">
+                2018-11-12
               </time>
             
 
@@ -349,101 +352,54 @@
       
 
       
-        <p>new运算符，在MDN中是这样介绍的：new 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象的实例。</p>
-<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p>创建一个用户自定义的对象需要两步：</p>
-<ol>
-<li>通过编写函数来定义对象类型。</li>
-<li>通过new来创建对象实例。</li>
-</ol>
-<p>当然只看这些文字概念可能会显得有点难以理解，我们来举个例子：</p>
-<pre><code>function Person(age, name) {
-  this.age = age;
+        <p>原型，每每看到关于js基础的文章，原型都是绕不开的话题，可见原型是个多么重要的概念。原型，我们在实际工作中可能不会特意注意到它。但我们却切切实实地使用了它。我们创建的每一个函数，都可以有一个prototype属性，该属性指向一个对象，这个对象，就是我们常说的原型对象。</p>
+<h1 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h1><p>举个例子：</p>
+<pre><code>function Person(name, age) {
   this.name = name;
-  this.habits = &apos;play games&apos;
-}
-Person.prototype.height = &apos;170&apos;;
-Person.prototype.sayName = function() {
-  console.log(&apos;I am &apos; + this.name);
-}
-let person = new Person(24, &apos;Allen&apos;);
-console.log(person.age); // 24
-console.log(person.name); // Allen
-console.log(person.height) // 170
-person.sayName(); // I am Allen
-</code></pre><p>&emsp;&emsp;从上面的例子中可以看到，通过Person构造函数创建的person实例对象，可以访问到构造函数里面的属性，同时，它又能够访问到构造函数原型上面的属性和方法。我们理一理思路，然后总结一下new运算符到底做了什么:</p>
-<ol>
-<li>声明一个中间对象；</li>
-<li>将该中间对象的原型指向构造函数的原型；</li>
-<li>将构造函数的this，指向该中间对象；</li>
-<li>返回该中间对象，即返回实例对象。</li>
-</ol>
-<p>了解到new运算符做了些什么，接下来我们也来模拟实现以下new。</p>
-<h1 id="模拟实现第一版"><a href="#模拟实现第一版" class="headerlink" title="模拟实现第一版"></a>模拟实现第一版</h1><pre><code>function new2() {
-  // 创建一个中间对象
-  let res = Object.create(Object.prototype);
-  // 获取构造函数
-  let constructor = Array.prototype.shift.call(arguments);
-  // 将实例对象的__proto__指向构造函数的原型，这样实例对象可以函数到构造函数原型上面的属性和方法
-  res.__proto__ = constructor.prototype;
-  constructor.apply(res, arguments);
-  return res;
-}
-</code></pre><p>我们使用开篇使用的例子，测试模拟的new运算符</p>
-<pre><code>let person = new2(Person, 24, &apos;Allen&apos;);
-console.log(person.age); // 24
-console.log(person.name); // Allen
-console.log(person.height) // 170
-person.sayName(); // I am Allen
-</code></pre><p>运行代码之后，我们发现运行输出的结果真的和上面一模一样，这是不是说明我们已经模拟成功了呢，当然不是！！！</p>
-<h1 id="模拟实现第二版"><a href="#模拟实现第二版" class="headerlink" title="模拟实现第二版"></a>模拟实现第二版</h1><p>第一版实现完成后，我们发现的确能实现部分new运算符的效果，但并不完全，如果构造函数里面返回一个对象或者是null或者是基本类型值时会是什么效果呢，我们继续看代码。</p>
-<pre><code>function Person(age, name) {
   this.age = age;
-  this.name = name;
-  return &apos;play games&apos;
 }
-let person = new Person(24, &apos;Allen&apos;);
-console.log(person.age); // 24
+Person.prototype.getName = function() {
+  console.log(this.name);
+}
+let person1 = new Person(&apos;Allen&apos;, 24);
+let person2 = new Person(&apos;Jack&apos;, 25);
+person1.getName(); // Allen
+person2.getName(); // Jack
+console.log(person1.getName === person2.getName); // true
+</code></pre><p>我们在Person构造函数的原型对象上面添加了一个getName方法，而每一个new出来的Person实例，都有一个<strong>proto</strong>属性，这个属性指向Person构造函数的原型对象，通过这个属性，每一个Person实例都可以访问原型对象上的方法和属性，所以上面person1实例和person2实例都可以调用getName方法。<br>所以，我们从网上找来了一张图，可以清楚地描述这几者之间的关系。<br><img src="./1.png" alt=""></p>
+<p>从图中可以看到，在Person的原型对象中，有一个constructor属性，这个属性指向构造函数本身，那么，这个constructor属性是什么呢。<br>我的理解是，constructor属性用于识别对象是由哪个构造函数初始化的。</p>
+<pre><code>let arr = [];
+console.log(arr.constructor === Array); // true
+</code></pre><p>其实这里arr数组本身是没有constructor这个属性的，我们输出arr，我们可以看到，arr的<strong>proto</strong>对象中，有一个constructor属性，这个属性指向Array构造函数。</p>
+<h1 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h1><p>当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到，就去找原型的原型，一直找到最顶层为止。<br>举个例子：</p>
+<pre><code>function Person() {
+
+}
+Person.prototype.name = &apos;Allen&apos;;
+let person = new Person();
+person.name = &apos;Jack&apos;;
+console.log(person.name); // Jack
+delete person.name
 console.log(person.name); // Allen
-</code></pre><p>我们可以看待，尽管构造函数返回了一个基本类型值，但是相当于没有返回值进行处理。</p>
-<pre><code>function Person(age, name) {
-  this.age = age;
+</code></pre><p>在这个例子中，我们给实例对象person添加了name属性，当我们打印 person.name 的时候，结果自然为Jack。<br>但是当我们删除了person的name属性时，读取 person.name，从 person 对象中找不到 name 属性就会从 person 的原型也就是 person.<strong>proto</strong> ，也就是 Person.prototype中查找，幸运的是我们找到了 name 属性，结果为Allen。<br>这里还需要注意一点，当我们访问实例对象中的属性或者方法时，会优先访问实例对象自身的属性和方法。比如：</p>
+<pre><code>function Person(name, age) {
   this.name = name;
-  return {
-    habit: &apos;play game&apos;,
-    height: 170
-  };
-}
-let person = new Person(24, &apos;Allen&apos;);
-console.log(person.age); // undefined
-console.log(person.name); // undefined
-console.log(person.habit); // play games
-console.log(person.height); // 170
-</code></pre><p>在这个例子中，构造函数返回了一个对象，在实例 person 中只能访问返回的对象中的属性。</p>
-<pre><code>function Person(age, name) {
   this.age = age;
-  this.name = name;
-  return null;
-}
-let person = new Person(24, &apos;Allen&apos;);
-console.log(person.age); // 24
-console.log(person.name); // Allen
-</code></pre><p>我们可以看到，当构造函数返回null时，我们依旧可以访问实列构造函数中的属性。<br>通过各种测试我们最终实现了一个模拟最终版</p>
-<pre><code>function new2() {
-  // 创建一个中间对象
-  let res = Object.create(Object.prototype);
-  // 获取构造函数
-  let constructor = Array.prototype.shift.call(arguments);
-  // 将实例对象的__proto__指向构造函数的原型，这样实例对象可以函数到构造函数原型上面的属性和方法
-  res.__proto__ = constructor.prototype;
-  // ret为构造函数执行的结果。将构造函数内部的this指向修改为指向res，即为实例对象。
-  let ret = constructor.apply(res, arguments);
-  // 判断ret是否为对象并且不为null，如是，返回ret
-  if (typeof ret === &apos;object&apos; &amp;&amp; ret !== null ) {
-    return ret;
+  this.getName = function() {
+    console.log(&apos;this is constructor.&apos;);
   }
-  return res;
 }
-</code></pre><p>对new的模拟实现就到这里，本文的目的只是单纯地加深自己的理解，仅此而已。</p>
+Person.prototype.getName = function() {
+  return this.name;
+}
+var p1 = new Person(&apos;tim&apos;, 10);
+p1.getName(); // this is constructor.
+</code></pre><p>在这个例子中，我们同时在原型与构造函数中都声明了一个getName函数，运行代码的结果表示原型中的访问并没有被访问。<br>原型对象其实也是普通的对象。几乎所有的对象都可能是原型对象，也可能是实例对象，而且还可以同时是原型对象与实例对象。<br>上面我们说到，当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到，就去找原型的原型，一直找到最顶层为止，那么，最顶层的原型，我的理解是Object.prototype，那Object。prototype指向什么呢。<br>null，我们可以打印一下。</p>
+<pre><code>console.log(Object.prototype.__proto__ === null); // true
+</code></pre><blockquote>
+<p>null 表示“没有对象”，即该处不应该有值。</p>
+</blockquote>
+<p>所以 Object.prototype.<strong>proto</strong> 的值为 null 跟 Object.prototype 没有原型，其实表达了一个意思。<br>所以查找属性的时候查到 Object.prototype 就可以停止查找了。<br>最后，我又找到了一张清晰的关系图，晒出来吧。0.0<br><img src="./2.png" alt=""><br>真的是最后一句，图中由相互关联的原型组成的链状结构就是原型链，也就是蓝色的这条线。</p>
 
       
     </div>
@@ -474,8 +430,8 @@ console.log(person.name); // Allen
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/23/链表和集合/" rel="next" title="用JavaScript实现链表和集合">
-                <i class="fa fa-chevron-left"></i> 用JavaScript实现链表和集合
+              <a href="/2018/11/11/模拟call和apply/" rel="next" title="JavaScript之模拟call和apply">
+                <i class="fa fa-chevron-left"></i> JavaScript之模拟call和apply
               </a>
             
           </div>
@@ -483,10 +439,6 @@ console.log(person.name); // Allen
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/11/模拟call和apply/" rel="prev" title="JavaScript之模拟call和apply">
-                JavaScript之模拟call和apply <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -618,7 +570,7 @@ console.log(person.name); // Allen
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#描述"><span class="nav-number">1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模拟实现第一版"><span class="nav-number">2.</span> <span class="nav-text">模拟实现第一版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模拟实现第二版"><span class="nav-number">3.</span> <span class="nav-text">模拟实现第二版</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#原型"><span class="nav-number">1.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原型链"><span class="nav-number">2.</span> <span class="nav-text">原型链</span></a></li></ol></div>
             
 
           </div>
